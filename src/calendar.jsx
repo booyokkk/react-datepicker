@@ -541,10 +541,15 @@ export default class Calendar extends React.Component {
       return;
     }
 
+    const { openToDate } = this.props;
+
     var monthList = [];
+
     for (var i = 0; i < this.props.monthsShown; ++i) {
-      var monthsToAdd = i - this.props.monthSelectedIn;
-      var monthDate = addMonths(this.state.date, monthsToAdd);
+      var monthsToAdd = openToDate ? i : i - this.props.monthSelectedIn;
+      var monthDate = openToDate
+        ? addMonths(openToDate, monthsToAdd)
+        : addMonths(this.state.date, monthsToAdd);
       var monthKey = `month-${i}`;
       monthList.push(
         <div
